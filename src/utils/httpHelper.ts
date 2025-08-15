@@ -1,7 +1,4 @@
-interface HTTPResponse {
-  statusCode: number;
-  body: any;
-}
+import { HTTPResponse } from "../models/HTTPResponse";
 
 export const ok = async (data: any): Promise<HTTPResponse> => {
   return {
