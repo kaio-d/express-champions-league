@@ -1,3 +1,15 @@
+import { findAllPlayers } from "../repositories/playerRepository";
+import { noContent, ok } from "../utils/httpHelper";
+
 export const getPlayerService = async () => {
-  return { player: "Lionel Messi" };
+  const data = await findAllPlayers();
+  let response = null;
+
+  if (data) {
+    response = await ok(data);
+  } else {
+    response = await noContent()
+  }
+
+  return response
 };
