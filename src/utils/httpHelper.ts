@@ -13,3 +13,17 @@ export const noContent = async (): Promise<HTTPResponse> => {
     body: "",
   };
 };
+
+export const badResquest = async (): Promise<HTTPResponse> => {
+  return {
+    statusCode: 400,
+    body: "",
+  };
+};
+
+export const created = async (): Promise<HTTPResponse> => {
+  return {
+    statusCode: 201,
+    body: "Sucesso !",
+  };
+};
