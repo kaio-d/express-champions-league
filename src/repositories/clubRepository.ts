@@ -1,15 +1,17 @@
 import { ClubModel } from "../models/clubModel";
+import fs from "fs/promises"
 
-const clubDatabase: ClubModel[] = [
-  { id: 1, name: "Real Madri" },
-  { id: 2, name: "Barcelona" },
-];
 
 export const findAllClubs = async (): Promise<ClubModel[]> => {
-  return clubDatabase;
+  const data = await fs.readFile("./src/data/clubs.json", "utf-8")
+  const clubs: ClubModel[] = JSON.parse(data)
+  return clubs;
 };
 
 export const findClubById = async (id: number) => {
-  const index = clubDatabase.find((club) => club.id === id);
+  const data = await fs.readFile("./src/data/clubs.json", "utf-8")
+  const clubs: ClubModel[] = JSON.parse(data)
+
+  const index = clubs.find((club) => club.id === id);
   return index;
 };
