@@ -1,7 +1,9 @@
 import { PlayerModel } from "../models/playerModel";
+import { StatisticsModel } from "../models/statisticsModel";
 import {
   deleteOnePlayer,
   findAllPlayers,
+  findAndModifyPlayer,
   findPlayerById,
   insertPlayer,
 } from "../repositories/playerRepository";
@@ -38,9 +40,9 @@ export const cretaPlayerService = async (player: PlayerModel) => {
 
   if (Object.keys(player).length !== 0) {
     await insertPlayer(player);
-    response = created();
+    response = await created();
   } else {
-    response = badResquest();
+    response = await badResquest();
   }
 
   return response;
@@ -51,5 +53,21 @@ export const deletePlayerByIdService = async (id: number) => {
   await deleteOnePlayer(id);
 
   response = ok({ message: "Delete!" });
+  return response;
+};
+
+export const updatePlayerService = async (
+  id: number,
+  statistics: StatisticsModel
+) => {
+  const data = await findAndModifyPlayer(id, statistics);
+  let response = null;
+
+  if (Object.keys(data).length === 0) {
+    response = badResquest();
+  } else {
+    response = ok(data);
+  }
+
   return response;
 };

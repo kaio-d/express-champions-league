@@ -4,8 +4,9 @@ import {
   deletePlayerByIdService,
   getPlayerByIDService,
   getPlayerService,
+  updatePlayerService,
 } from "../services/playersService";
-import { badResquest, noContent } from "../utils/httpHelper";
+import { StatisticsModel } from "../models/statisticsModel";
 
 export const getPlayer = async (req: Request, res: Response) => {
   const httResponse = await getPlayerService();
@@ -31,6 +32,14 @@ export const postPlayerById = async (req: Request, res: Response) => {
 export const deletePlayerById = async (req: Request, res: Response) => {
   const id = parseInt(req.params.id);
   const httResponse = await deletePlayerByIdService(id);
-  
+
+  res.status(httResponse.statusCode).json(httResponse.body);
+};
+
+export const updatePlayerById = async (req: Request, res: Response) => {
+  const id = parseInt(req.params.id);
+  const bodyValue: StatisticsModel = req.body;
+  let httResponse = await updatePlayerService(id, bodyValue);
+
   res.status(httResponse.statusCode).json(httResponse.body);
 };
