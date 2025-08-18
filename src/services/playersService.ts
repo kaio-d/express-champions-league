@@ -50,9 +50,14 @@ export const cretaPlayerService = async (player: PlayerModel) => {
 
 export const deletePlayerByIdService = async (id: number) => {
   let response = null;
-  await deleteOnePlayer(id);
+  const isDeleted = await deleteOnePlayer(id);
 
-  response = ok({ message: "Delete!" });
+  if (isDeleted) {
+    response = await ok({ message: "Delete!" });
+  } else {
+    response = await badResquest();
+  }
+
   return response;
 };
 
