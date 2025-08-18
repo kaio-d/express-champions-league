@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import {
   cretaPlayerService,
+  deletePlayerByIdService,
   getPlayerByIDService,
   getPlayerService,
 } from "../services/playersService";
@@ -25,4 +26,11 @@ export const postPlayerById = async (req: Request, res: Response) => {
   if (httResponse) {
     res.status(httResponse.statusCode).json(httResponse.body);
   }
+};
+
+export const deletePlayerById = async (req: Request, res: Response) => {
+  const id = parseInt(req.params.id);
+  const httResponse = await deletePlayerByIdService(id);
+  
+  res.status(httResponse.statusCode).json(httResponse.body);
 };

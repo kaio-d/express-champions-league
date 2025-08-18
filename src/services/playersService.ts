@@ -1,5 +1,6 @@
 import { PlayerModel } from "../models/playerModel";
 import {
+  deleteOnePlayer,
   findAllPlayers,
   findPlayerById,
   insertPlayer,
@@ -36,11 +37,19 @@ export const cretaPlayerService = async (player: PlayerModel) => {
   let response = null;
 
   if (Object.keys(player).length !== 0) {
-    await insertPlayer(player)
-    response = created()
+    await insertPlayer(player);
+    response = created();
   } else {
     response = badResquest();
   }
 
+  return response;
+};
+
+export const deletePlayerByIdService = async (id: number) => {
+  let response = null;
+  await deleteOnePlayer(id);
+
+  response = ok({ message: "Delete!" });
   return response;
 };
