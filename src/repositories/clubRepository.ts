@@ -5,6 +5,11 @@ const clubDatabase: ClubModel[] = [
   { id: 2, name: "Barcelona" },
 ];
 
-export const findAllClubs = async ():Promise<ClubModel[]> => {
+export const findAllClubs = async (): Promise<ClubModel[]> => {
   return clubDatabase;
+};
+
+export const findClubById = async (id: number) => {
+  const index = clubDatabase.find((club) => club.id === id);
+  return index;
 };

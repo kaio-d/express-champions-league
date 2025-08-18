@@ -1,9 +1,22 @@
-import { findAllClubs } from "../repositories/clubRepository";
-import { ok } from "../utils/httpHelper"
+import { findAllClubs, findClubById } from "../repositories/clubRepository";
+import { badResquest, ok } from "../utils/httpHelper";
 
 export const getClubsService = async () => {
-    const data = await findAllClubs()
-    const response = ok(data)
+  const data = await findAllClubs();
+  const response = ok(data);
 
-    return response;
-}
+  return response;
+};
+
+export const getClubByIdService = async (id: number) => {
+  let response = null;
+  const data = await findClubById(id);
+
+  if (data) {
+    response = ok(data);
+  } else {
+    response = badResquest();
+  }
+
+  return response;
+};
